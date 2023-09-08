@@ -1,0 +1,52 @@
+services:
+  # frontend:
+  #   build:
+  #   volumes:
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     application:
+  #       ipv4_address: "172.18.0.4"
+
+  # Database MySQL Container
+  db:
+    image: mysql:8 # Build from predefined image
+    volumes:
+      # Setting up volumes for database manipulation
+      - /var/lib/mysql
+      - ./database/database.sql:/docker-entrypoint-initdb.d/1.sql
+    environment:
+      # Setting up MySQL Variables
+      - HOST_HOSTNAME=localhost
+      - MYSQL_ROOT_PASSWORD=shopperdb
+      - MYSQL_DATABASE=shopper
+    ports:
+      # Expose 3306 port
+      - "3306:3306"
+    networks:
+      application:
+        # Set local IP address to 172.18.0.3
+        ipv4_address: "172.18.0.3"
+
+  # Backend Node.js Container
+  backend:
+    build: . # Building from Dockerfile
+    volumes:
+      # Setting up the volume for fast testing w/o resetting the container
+      - ./application/backend-shopper/src:/usr/src/app/src
+    ports:
+      # Expose 3333 port
+      - "3333:3333"
+    networks:
+      application:
+        # Set local IP address to 172.18.0.2
+        ipv4_address: "172.18.0.2"
+
+# Configure the Application Container Network
+networks:
+  application:
+    name: app_shopper
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.18.0.0/24"
