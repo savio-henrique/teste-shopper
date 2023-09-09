@@ -20,3 +20,8 @@ Após o "build", no mesmo diretório, execute:
 ```docker-compose up -d```
 
 Caso dê tudo certo, o site estará disponível no endereço [Site](http://172.18.0.4:3000/).
+
+A API feita está disponível nos links:
+
+http://172.18.0.2:3333/products
+http://172.18.0.2:3333/packs
