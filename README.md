@@ -1,5 +1,7 @@
 # Teste Shopper 2023
 
+Realizado por: Sávio Henrique Chaves Mendes
+
 ## Instruções de instalação
 
 ### Programas necessários
@@ -25,3 +27,21 @@ A API feita está disponível nos links:
 
 http://172.18.0.2:3333/products
 http://172.18.0.2:3333/packs
+
+---
+
+## Ferramentas e linguagens utilizadas no projeto
+
+* Docker
+* Typescript
+* Node.js
+* Next.js
+* Express
+* Design Patterns
+* API
+* Git
+* MySQL
+
+---
+
+Obrigado pela oportunidade!
