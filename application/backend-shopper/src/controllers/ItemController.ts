@@ -37,6 +37,7 @@ interface IProductController{
     listPack(): Promise<Array<Pack>>,
     // create(product: Product | Pack): Promise<boolean>,
     // read(id:number): Promise<Product | Pack | boolean>,
+    validate(params:Params[]): Promise<boolean|ValidError[]>
     update(params:Params[]): Promise<boolean|ValidError[]>,
     // delete(id:number): Promise<boolean>
 }
@@ -61,7 +62,7 @@ class ControllerProduct implements IProductController {
         return result[0]
     }
 
-    private async validateParams(params:Params[]) : Promise<boolean|ValidError[]>{        
+    public async validate(params:Params[]) : Promise<boolean|ValidError[]>{        
         const errorList :ValidError[] = [] 
 
         // Encontra o erro na Lista
@@ -189,7 +190,7 @@ class ControllerProduct implements IProductController {
         const sql = "UPDATE `products` SET `sales_price` = ? WHERE `code` = ?" 
         
         // Validação dos parâmetros
-        const isValid = await this.validateParams(params)
+        const isValid = await this.validate(params)
         // if (isValid !== true) return isValid
         //     for(let i = 0; i< params.length; i++){
         //         var values = [params[i].new_price, params[i].id]
@@ -229,24 +230,31 @@ class ProductRoutes {
     }
 
     public async update(req :Request, res:Response){
-        const teste: Params[] = [{
-            id:1020,
-            new_price: 57
-        },{
-            id:19,
-            new_price: 7.29 
-        },{
-            id:21,
-            new_price: 11.71
-        },
-        {
-            id:1010,
-            new_price: 9.79
-        },{
-            id:24,
-            new_price: 4
-        }]
-        return res.json(await ProductRoutes.controller.update(teste))
+        console.log(req.body)
+        const request : Params[] = [] 
+        req.body.forEach((element:any) => {
+            const param : Params = {
+                id: parseInt(element.product_code),
+                new_price: parseFloat(element.new_price)
+            } 
+            request.push(param)
+        });
+        console.log(request)
+        return res.json(await ProductRoutes.controller.update(request))
+    }
+
+    public async validate(req :Request, res:Response){
+        console.log(req.body)
+        const request : Params[] = [] 
+        req.body.forEach((element:any) => {
+            const param : Params = {
+                id: parseInt(element.product_code),
+                new_price: parseFloat(element.new_price)
+            } 
+            request.push(param)
+        });
+        console.log(request)
+        return res.json(await ProductRoutes.controller.validate(request))
     }
 }
 
