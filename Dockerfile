@@ -10,13 +10,14 @@ RUN npm install
 # RUN npm ci --omit=dev
 
 # Bundle app source
+
 COPY application/backend-shopper .
 
 EXPOSE 3333
 
-CMD [ "npm" , "run" , "dev" ]
+# CMD [ "npm" , "run" , "dev" ]
 
 # if for production
-# CMD [ "npm" , "run" , "build" ]
+CMD [ "npm" , "run" , "build" ]
 
-# CMD [ "node" , "dist/index.js" ]
+CMD [ "node" , "dist/index.js" ]

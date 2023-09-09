@@ -1,12 +1,13 @@
 services:
-  # frontend:
-  #   build:
-  #   volumes:
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     application:
-  #       ipv4_address: "172.18.0.4"
+  frontend:
+    build: ./application/frontend-shopper/
+    volumes:
+      - ./application/frontend-shopper/src:/user/src/app/src
+    ports:
+      - "3000:3000"
+    networks:
+      application:
+        ipv4_address: "172.18.0.4"
 
   # Database MySQL Container
   db:
