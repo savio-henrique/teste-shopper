@@ -191,15 +191,15 @@ class ControllerProduct implements IProductController {
         
         // Validação dos parâmetros
         const isValid = await this.validate(params)
-        // if (isValid !== true) return isValid
-        //     for(let i = 0; i< params.length; i++){
-        //         var values = [params[i].new_price, params[i].id]
+        if (isValid !== true) return isValid
+            for(let i = 0; i< params.length; i++){
+                var values = [params[i].new_price, params[i].id]
 
-        //         await this.use_query_data(sql,values)
-        //         .then((result:Array<any>) => {
-        //             final = true;
-        //         })
-        //     }
+                await this.use_query_data(sql,values)
+                .then((result:Array<any>) => {
+                    final = true;
+                })
+            }
         return final;
     }
     
